@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
-import Navbar from './components/Navbar/Navbar'
+import Navbar from './components/navbar/Navbar'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
