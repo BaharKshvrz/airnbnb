@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-
 import Button from "../Button";
 
 interface ModalProps {
@@ -40,8 +39,7 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-  
-    setShowModal(false);
+   setShowModal(false);
     setTimeout(() => {
       onClose();
     }, 300)
@@ -51,7 +49,6 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-
     onSubmit();
   }, [onSubmit, disabled]);
 
@@ -59,7 +56,6 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled || !secondaryAction) {
       return;
     }
-
     secondaryAction();
   }, [secondaryAction, disabled]);
 
@@ -97,16 +93,14 @@ const Modal: React.FC<ModalProps> = ({
           md:h-auto
           "
         >
-          {/*content*/}
+          {/* content */}
           <div className={`
-            translate
             duration-300
             h-full
             ${showModal ? 'translate-y-0' : 'translate-y-full'}
             ${showModal ? 'opacity-100' : 'opacity-0'}
           `}>
             <div className="
-              translate
               h-full
               lg:h-auto
               md:h-auto
@@ -122,7 +116,7 @@ const Modal: React.FC<ModalProps> = ({
               focus:outline-none
             "
             >
-              {/*header*/}
+              {/* header */}
               <div className="
                 flex 
                 items-center 
@@ -150,11 +144,11 @@ const Modal: React.FC<ModalProps> = ({
                   {title}
                 </div>
               </div>
-              {/*body*/}
+              {/* body */}
               <div className="relative p-6 flex-auto">
                 {body}
               </div>
-              {/*footer*/}
+              {/* footer */}
               <div className="flex flex-col gap-2 p-6">
                 <div 
                   className="
