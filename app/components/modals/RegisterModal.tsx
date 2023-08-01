@@ -13,6 +13,8 @@ import {
     useForm,
 } from "react-hook-form"
 import Input from "../inputs/Input";
+import { toast } from "react-hot-toast";
+import Button from "../Button";
 
 
 const RegisterModal = () => {
@@ -33,14 +35,15 @@ const RegisterModal = () => {
      }
   });
 
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-     setIsLoading(false);
+     setIsLoading(true);
      axios.post("/api/register", data)
        .then(() => {
          registerModal.onClose();
        })
        .catch((error) => {
-         console.log(error)
+          toast.error("Something went wrong!")
        })
        .finally(() => {
           setIsLoading(false)
@@ -82,6 +85,29 @@ const RegisterModal = () => {
      </div>
   )
 
+  const footerContent = (
+    <div className="flex flex-col gap-4">
+       <Button
+          label="Continue with Google"
+          outline
+          icon={FcGoogle}
+          onClick={() => {}}
+       />
+
+        <Button
+          label="Continue with Github"
+          outline
+          icon={AiFillGithub}
+          onClick={() => {}}
+       />
+
+       <div className="flex justify-center">
+         <span className="text-neutral-500">Already have an account?</span>
+         <span className="ml-2 hover:underline text-neutral-700 cursor-pointer">Login</span>
+       </div>
+    </div>
+  ) 
+
   return (
     <Modal
         disabled={isLoading}
@@ -91,6 +117,7 @@ const RegisterModal = () => {
         onClose={registerModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
+        footer={footerContent}
   />
   )
 }

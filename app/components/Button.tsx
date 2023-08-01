@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-       onClick={(e) => {}}
+       onClick={onClick}
        className={`
            rounded-lg
            transition
@@ -23,17 +23,21 @@ const Button: React.FC<ButtonProps> = ({
            disabled:opacity-70
            disabled:cursor-not-allowed
            w-full
-           flex justify-center items-center
+           relative
            ${small ? "py-1" : "py-3"}
-           ${small ? "text-sm" : "text-lg"}
+           ${small ? "text-sm" : "text-base"}
            ${small ? "border" : "border-2"}
+           ${outline ? 'border-black' : 'border-rose-500'}
            ${outline ? "bg-white text-black" : "bg-rose-500 text-white"}
        `}
      >
-      {label}
       {Icon && 
-        <Icon size={24} />
+        <Icon 
+           size={24}
+           className="absolute left-2"
+        />
       }
+      {label}
     </button>
   )
 }

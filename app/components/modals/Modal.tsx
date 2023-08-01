@@ -39,7 +39,8 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-   setShowModal(false);
+  
+    setShowModal(false);
     setTimeout(() => {
       onClose();
     }, 300)
@@ -52,10 +53,12 @@ const Modal: React.FC<ModalProps> = ({
     onSubmit();
   }, [onSubmit, disabled]);
 
+
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) {
       return;
     }
+
     secondaryAction();
   }, [secondaryAction, disabled]);
 
@@ -79,7 +82,7 @@ const Modal: React.FC<ModalProps> = ({
           focus:outline-none
           bg-neutral-800/70
         "
-      >
+         >
         <div className="
           relative 
           w-full
@@ -88,19 +91,20 @@ const Modal: React.FC<ModalProps> = ({
           xl:w-2/5
           my-6
           mx-auto 
-          h-full 
           lg:h-auto
           md:h-auto
           "
         >
-          {/* content */}
+          {/*content*/}
           <div className={`
+            translate
             duration-300
             h-full
             ${showModal ? 'translate-y-0' : 'translate-y-full'}
             ${showModal ? 'opacity-100' : 'opacity-0'}
           `}>
             <div className="
+              translate
               h-full
               lg:h-auto
               md:h-auto
