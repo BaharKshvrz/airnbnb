@@ -42,3 +42,9 @@ Running commands with npm `npm run [command]`
 | command         | description                              |
 | :-------------- | :--------------------------------------- |
 | `dev`           | Starts a development instance of the app |
+
+
+# How to work with prisma?
+npm i -D prisma
+npx prisma init
+npx prisma db push
