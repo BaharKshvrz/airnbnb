@@ -27,8 +27,8 @@ model User {
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String  @db.ObjectId
   type String
   provider String
   providerAccountId String
@@ -63,9 +63,12 @@ model Account {
    reservations Reservation[]
  }
 
+//  @id: id is a primary key
+//  @map("_id"): _id is the default  that MongoDB gives for our IDs.
+//  @db.ObjectId: it's the specific data for id.
 
 model Reservation {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+    id   String @id @default(auto()) @map("_id") @db.ObjectId
     userId String @db.ObjectId
     listingId String @db.ObjectId
     startDate DateTime

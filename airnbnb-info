@@ -1,0 +1,2 @@
+npm i bcrypt
+npm i -D @types/bcrypt: The bcrypt package doen't have the type, so we install this package.
