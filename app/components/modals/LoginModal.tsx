@@ -5,7 +5,6 @@ import { AiFillGithub } from "react-icons/ai"
 import { FcGoogle } from "react-icons/fc";
 import Modal from "./Modal"
 import Heading from "../Heading"
-import useRegisterModal from "../hooks/useRegisterModal"; 
 import { useCallback, useState } from "react";
 import {
     FieldValues,
@@ -16,11 +15,13 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "../hooks/useLoginModal";
+import useRegisterModal from "../hooks/useRegisterModal";
 
 
-const RegisterModal = () => {
-  const registerModal = useRegisterModal();
+const LoginModal = () => {
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+
   const [isLoading, setIsLoading] = useState(false);
   
   const {
@@ -37,12 +38,11 @@ const RegisterModal = () => {
      }
   });
 
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
      setIsLoading(true);
      axios.post("/api/register", data)
        .then(() => {
-         registerModal.onClose();
+         loginModal.onClose();
        })
        .catch((error) => {
           toast.error("Something went wrong!")
@@ -53,16 +53,15 @@ const RegisterModal = () => {
   }
 
   const onToggle = useCallback(() => {
-     registerModal.onClose();
-     loginModal.onOpen();
-   }, [loginModal, registerModal])
-
+     loginModal.onClose();
+     registerModal.onOpen();
+  }, [loginModal, registerModal])
 
   const bodyContent = (
      <div className="flex flex-col gap-4">
         <Heading
-           title="Welcome to Airbnb"
-           subtitle="Create an account!"
+           title="Welcome back"
+           subtitle="Login to your account!"
         />
         <Input
            id="email"
@@ -72,15 +71,6 @@ const RegisterModal = () => {
            errors={errors}
            required
         />
-       <Input
-           id="name"
-           label="Name"
-           disabled={isLoading}
-           register={register}
-           errors={errors}
-           required
-        />
-
          <Input
            id="password"
            label="Password"
@@ -110,11 +100,11 @@ const RegisterModal = () => {
        />
 
        <div className="flex justify-center">
-         <span className="text-neutral-500">Already have an account?</span>
+         <span className="text-neutral-500">First time using Airbnb?</span>
          <span 
-             onClick={onToggle}
-             className="ml-2 hover:underline text-neutral-700 cursor-pointer"
-            >Login</span>
+            onClick={onToggle}
+            className="ml-2 hover:underline text-neutral-700 cursor-pointer"
+         >Create an account</span>
        </div>
     </div>
   ) 
@@ -122,10 +112,10 @@ const RegisterModal = () => {
   return (
     <Modal
         disabled={isLoading}
-        isOpen={registerModal.isOpen}
-        title="Register"
+        isOpen={loginModal.isOpen}
+        title="Login"
         actionLabel="Continue"
-        onClose={registerModal.onClose}
+        onClose={loginModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}
@@ -133,4 +123,4 @@ const RegisterModal = () => {
   )
 }
 
-export default RegisterModal
+export default LoginModal
