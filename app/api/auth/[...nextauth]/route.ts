@@ -66,7 +66,8 @@ export const authOptions : AuthOptions = {
      secret: process.env.NEXTAUTH_SECRET,
     }
 
-    export default NextAuth(authOptions)
+const handler = NextAuth(authOptions)
+export { handler as GET, handler as POST }
 
 
 // NextAuth.js automatically creates simple, unbranded authentication pages for handling Sign in, Sign out,
