@@ -43,7 +43,7 @@ const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
              >
             <AiOutlineMenu/>
             <div className="hidden md:block">
-               <Avatar/>
+               <Avatar src={currentUser?.image}/>
             </div>
           </div>
       </div>
@@ -60,7 +60,7 @@ const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
             {currentUser ? (
                 <>
                     <MenuItem 
-                      label="My trips" 
+                      label={"My trips" }
                       onClick={() => router.push('/trips')}
                     />
                     <MenuItem 

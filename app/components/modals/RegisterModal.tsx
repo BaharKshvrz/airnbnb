@@ -16,6 +16,7 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "../hooks/useLoginModal";
+import { signIn } from "next-auth/react";
 
 
 const RegisterModal = () => {
@@ -99,14 +100,14 @@ const RegisterModal = () => {
           label="Continue with Google"
           outline
           icon={FcGoogle}
-          onClick={() => {}}
+          onClick={() => signIn("google")}
        />
 
         <Button
           label="Continue with Github"
           outline
           icon={AiFillGithub}
-          onClick={() => {}}
+          onClick={() => signIn("github")}
        />
 
        <div className="flex justify-center">

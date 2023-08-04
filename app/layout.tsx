@@ -7,6 +7,7 @@ import ClientOnly from './components/ClientOnly'
 import ToasterProvider from './components/providers/ToasterProvider'
 import LoginModal from './components/modals/LoginModal'
 import getCurrentUser from './actions/getCurrentUser'
+import Catergories from './components/navbar/Catergories'
 
 const nunito = Nunito({ subsets: ['latin'] })
 

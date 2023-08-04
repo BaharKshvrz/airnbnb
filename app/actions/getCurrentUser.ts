@@ -17,11 +17,14 @@ export default async function getCurrentUser() {
             email: session.user.email,
          }
        })
+       console.log("currentUser")
+
+       console.log(currentUser)
 
        if (!currentUser) {
          return null;
        }
-
+       
        return {
          ...currentUser,
          createdAt: currentUser.createdAt.toISOString(),
@@ -33,3 +36,11 @@ export default async function getCurrentUser() {
         return null;
     }
 }
+
+/*
+toISOString(): The toISOString() method of Date instances returns a string representing 
+this date in the date time string format.
+
+const event = new Date();
+console.log(event.toISOString());   //"2023-08-03T07:01:32.491Z"
+*/
