@@ -5,6 +5,8 @@ import useRentModal from '../hooks/useRentModal'
 import Heading from '../Heading'
 import { categories } from '@/app/constants'
 import CategoryInput from '../inputs/CategoryInput'
+import { toast } from 'react-hot-toast';
+
 import { 
   FieldValues, 
   SubmitHandler, 
@@ -14,6 +16,9 @@ import CategorySelect from '../inputs/CategorySelect'
 import dynamic from 'next/dynamic'
 import Counter from '../inputs/Counter'
 import ImageUpload from '../inputs/ImageUpload'
+import Input from '../inputs/Input'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 enum STETPS {
     CATEGORY = 0,
@@ -27,6 +32,8 @@ enum STETPS {
 const RentModal = () => {
   const useRent = useRentModal();
   const [step, setStep] = useState(STETPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // Handle the user's items on book room
   const { 
@@ -67,6 +74,28 @@ const RentModal = () => {
     })
   }
  // end of the section
+
+ 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (step !== STETPS.PRICE ) {
+      return onNext();
+    }
+    setIsLoading(true);
+    axios.post("/api/listings", data)
+       .then(() => {
+         toast.success("Listing created!");
+         router.refresh();
+         setStep(STETPS.CATEGORY);
+         useRent.onClose();
+       })
+       .catch(() => {
+         toast.error("Something went wrong!")
+       })
+       .finally(() => {
+         setIsLoading(false);
+       })
+
+  }
 
   const onBack = () => {
     setStep(value => value - 1);
@@ -182,13 +211,63 @@ const RentModal = () => {
     )
   }
 
+  if (step === STETPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+          <Heading
+             title="How would you describe your place?"
+             subtitle="Short and sweet works best!"
+          />
+          <Input
+            id="title"
+            label="Title"
+            disabled={isLoading}
+            required
+            register= {register}
+            errors={errors}
+         />
+          <Input
+            id="description"
+            label="Description"
+            disabled={isLoading}
+            required
+            register= {register}
+            errors={errors}
+         />
+      </div>
+    )
+  }
+
+  if (step === STETPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+          <Heading
+             title="How would you describe your place?"
+             subtitle="Short and sweet works best!"
+          />
+          <Input
+            id="price"
+            label="Price"
+            disabled={isLoading}
+            required
+            formatPrice
+            type="number"
+            register= {register}
+            errors={errors}
+         />
+      </div>
+    )
+  }
+
+  
+
   return (
     <Modal
         title="Airbnb is your home!"
         actionLabel={actionLabel}
         secondaryActionLabel={secondaryActionLabel}
         onClose={useRent.onClose}
-        onSubmit={onNext}
+        onSubmit={handleSubmit(onSubmit)}
         isOpen={useRent.isOpen}
         body={bodyContent}
         secondaryAction={step === STETPS.CATEGORY ? undefined: onBack}
