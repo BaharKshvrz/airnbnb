@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { IconType } from "react-icons";
 
@@ -15,14 +17,14 @@ const CategoryInput:React.FC<CategoryInputProps> = ({
 }) => {
   return (
     <div 
-       className={`
-          flex items-center gap-1 border flex-col
-           rounded-xl hover:border-black p-3
-           cursor-pointer
-           ${selected ? "border-black" : "border-neutral-300"}
-         `}
-         onClick={() => onClick(label)}
-          >
+          className={`
+            flex items-center gap-1 border flex-col
+            rounded-xl hover:border-black p-3
+            cursor-pointer
+            ${selected ? "border-black" : "border-neutral-300"}
+           `}
+          onClick={() => onClick(label)}
+           >
         <Icon size={30} />
         <span className="font-semibold">{label}</span>
     </div>

@@ -5,6 +5,13 @@ import useRentModal from '../hooks/useRentModal'
 import Heading from '../Heading'
 import { categories } from '@/app/constants'
 import CategoryInput from '../inputs/CategoryInput'
+import { 
+  FieldValues, 
+  SubmitHandler, 
+  useForm
+} from 'react-hook-form';
+import CategorySelect from '../inputs/CategorySelect'
+import dynamic from 'next/dynamic'
 
 enum STETPS {
     CATEGORY = 0,
@@ -18,6 +25,40 @@ enum STETPS {
 const RentModal = () => {
   const useRent = useRentModal();
   const [step, setStep] = useState(STETPS.CATEGORY);
+
+  // Handle the user's items on book room
+  const { 
+    register, 
+    handleSubmit,
+    setValue,
+    watch,
+    formState: {
+      errors,
+    },
+    reset,
+  } = useForm<FieldValues>({
+    defaultValues: {
+      category: '',
+      location: null, // it's an object
+      guestCount: 1,
+      roomCount: 1,
+      bathroomCount: 1,
+      imageSrc: '',
+      price: 1,
+      title: '',
+      description: '',
+    }
+  });
+  const category = watch('category');
+  const location = watch("location");
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true
+    })
+  }
+ // end of the section
 
   const onBack = () => {
     setStep(value => value - 1);
@@ -40,6 +81,11 @@ const RentModal = () => {
     return "Back";
   }, [step]);
 
+  // Load Map
+  const Map = useMemo(() => dynamic(() => import("../Map"), {ssr: false}), 
+  [ location ])
+
+  // Define the bodyContent
   let bodyContent = (
      <div className="flex flex-col gap-8">
        <Heading
@@ -47,15 +93,16 @@ const RentModal = () => {
           subtitle="Pick a category"
        />
        <div className="grid grid-cols-1 md:grid-cols-2 max-h-[50vh] gap-3 overflow-y-auto px-3">
-          { categories.map((category) => (
+          { categories.map((categoryItem) => (
               <div 
-                className="col-span-1"
-                key={category.label}
+                 className="col-span-1"
+                 key={categoryItem.label}
               >
                 <CategoryInput
-                  label={category.label}
-                  onClick={() => {}}
-                  icon={category.icon}
+                  label={categoryItem.label}
+                  onClick={(category) => setCustomValue('category', category)}
+                  selected={category === categoryItem.label}
+                  icon={categoryItem.icon}
                  />
               </div>
             ))
@@ -63,6 +110,22 @@ const RentModal = () => {
        </div>
      </div>
   )
+
+  if (step === STETPS.LOCATION) {
+      bodyContent= (
+        <div className="flex flex-col gap-8">
+            <Heading
+               title="Which is your place loacated?"
+               subtitle="Help guest find you!"
+            />
+            <CategorySelect
+               value={location}
+               onChange={(value) => setCustomValue('location', value)} 
+             />
+             <Map center={location?.latlong}/>
+        </div>
+      );
+  }
 
   return (
     <Modal
