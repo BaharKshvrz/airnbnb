@@ -13,6 +13,7 @@ import {
 import CategorySelect from '../inputs/CategorySelect'
 import dynamic from 'next/dynamic'
 import Counter from '../inputs/Counter'
+import ImageUpload from '../inputs/ImageUpload'
 
 enum STETPS {
     CATEGORY = 0,
@@ -53,8 +54,10 @@ const RentModal = () => {
   const category = watch('category');
   const location = watch("location");
   const guestCount = watch("guestCount");
-  const roomCount = watch("roomCount")
-  const bathroomCount = watch("bathroomCount")
+  const roomCount = watch("roomCount");
+  const bathroomCount = watch("bathroomCount");
+  const imageSrc = watch('imageSrc');
+
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -160,6 +163,21 @@ const RentModal = () => {
                onChange={(value) => setCustomValue("bathroomCount", value)}
                value={bathroomCount}
          />
+      </div>
+    )
+  }
+
+  if (step === STETPS.IMAGE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+          <Heading
+            title="Add a photo of your place"
+            subtitle="Show guests what your place looks like!"
+          />
+          <ImageUpload
+            onChange={(value) => setCustomValue('imageSrc', value)}
+            value={imageSrc}
+        />
       </div>
     )
   }
