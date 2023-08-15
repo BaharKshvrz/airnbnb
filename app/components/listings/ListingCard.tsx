@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import HeartButton from '../HeartButton'
 import Button from '../Button'
+import useFavorite from '../hooks/useFavorite'
 
 interface ListingCardProps {
     data: Listing,
