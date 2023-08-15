@@ -35,7 +35,10 @@ export default async function RootLayout({
             <RentModal/>
             <RegisterModal/>
          </ClientOnly>
-        {children}
+
+         <div className="pb-20 pt-44">
+            {children}
+         </div>
        </body>
     </html>
   )
