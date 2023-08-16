@@ -11,23 +11,23 @@ datasource db {
 }
 
 model User {
-    id String @id @default(auto())  @map("_id")  @db.ObjectId
-    name String?
-    email String? @unique
-    emailVerified DateTime?
-    image String?
-    hashedPassword String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    favoriteIds String[] @db.ObjectId
+    id                 String @id @default(auto())  @map("_id")  @db.ObjectId
+    name               String?
+    email              String? @unique
+    emailVerified      DateTime?
+    image              String?
+    hashedPassword     String?
+    createdAt          DateTime @default(now())
+    updatedAt          DateTime @updatedAt
+    favoriteIds        String[] @db.ObjectId
 
-    accounts Account[]
-    listings Listing[]
-    reservations Reservation[]
+    accounts           Account[]
+    listings           Listing[]
+    reservations       Reservation[]
 }
 
 model Account {
-    id  String @id @default(auto()) @map("_id") @db.ObjectId
+    id                 String @id @default(auto()) @map("_id") @db.ObjectId
     userId             String  @db.ObjectId
     type               String
     provider           String
@@ -68,13 +68,13 @@ model Account {
 //  @db.ObjectId: it's the specific data for id.
 
 model Reservation {
-      id   String @id @default(auto()) @map("_id") @db.ObjectId
-      userId String @db.ObjectId
-      listingId String @db.ObjectId
-      startDate DateTime
-      endDate DateTime
-      totalPrice Int
-      createdAt DateTime @default(now())
+      id           String @id @default(auto()) @map("_id") @db.ObjectId
+      userId       String @db.ObjectId
+      listingId    String @db.ObjectId
+      startDate    DateTime
+      endDate      DateTime
+      totalPrice   Int
+      createdAt    DateTime @default(now())
 
       user User @relation(fields: [userId], references: [id], onDelete: Cascade)
       listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)

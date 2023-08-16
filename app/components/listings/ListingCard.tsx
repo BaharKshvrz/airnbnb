@@ -1,7 +1,7 @@
 "use client"
 
-import { SafeUser } from '@/app/types'
-import { Listing, Reservation } from '@prisma/client'
+import { SafeListing, SafeUser } from '@/app/types'
+import { Reservation } from '@prisma/client'
 import Image from 'next/image'
 import React, { useCallback, useMemo } from 'react'
 import useCountries from '../hooks/useCountries'
@@ -9,10 +9,9 @@ import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
 import HeartButton from '../HeartButton'
 import Button from '../Button'
-import useFavorite from '../hooks/useFavorite'
 
 interface ListingCardProps {
-    data: Listing,
+    data: SafeListing,
     reservation?: Reservation,
     onAction?: (id: string) => void,
     disabled?: boolean,
@@ -57,8 +56,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, 'PP')} - ${format(end, 'PP')}`;
   }, [reservation]);
 
-
-  return (
+    return (
     <div className="group col-span-1 cursor-pointer" onClick={() => router.push(`/listings/${data.id}`)}>
        <div className="flex flex-col gap-2 w-full">
         <div className="relative w-full aspect-square rounded-xl overflow-hidden">
