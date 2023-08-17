@@ -74,7 +74,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
      }).then(() => {
         toast.success("Listing is reserved!");
         setIsLoading(false);
-        router.refresh();
+        router.push("/trips");
      }).catch(() => {
          toast.error("Something went wrong!")
      }).finally(() => {
