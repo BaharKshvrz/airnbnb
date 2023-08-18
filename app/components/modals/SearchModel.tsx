@@ -23,8 +23,6 @@ const SearchModel = () => {
   const router = useRouter();
 
   const [step, setStep] = useState(STEPS.LOCATION);
-  console.log("step:",step);
-
   const [location, setLocation] = useState<CountrySelectValue>();
   const [guestCount, setGuestCount] = useState(0);
   const [roomCount, setRoomCount] = useState(1);
