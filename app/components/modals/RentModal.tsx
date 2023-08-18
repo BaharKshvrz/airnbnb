@@ -12,7 +12,7 @@ import {
   SubmitHandler, 
   useForm
 } from 'react-hook-form';
-import CategorySelect from '../inputs/CategorySelect'
+import CategorySelect from '../inputs/CountrySelect'
 import dynamic from 'next/dynamic'
 import Counter from '../inputs/Counter'
 import ImageUpload from '../inputs/ImageUpload'

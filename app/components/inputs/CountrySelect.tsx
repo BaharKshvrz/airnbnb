@@ -15,7 +15,7 @@ interface CountrySelectProps {
 }
 
 
-const CategorySelect: React.FC<CountrySelectProps> = ({
+const CountrySelect: React.FC<CountrySelectProps> = ({
    value,
    onChange
 }) => {
@@ -57,4 +57,4 @@ const CategorySelect: React.FC<CountrySelectProps> = ({
   )
 }
 
-export default CategorySelect
+export default CountrySelect

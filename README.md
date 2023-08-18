@@ -48,3 +48,5 @@ Running commands with npm `npm run [command]`
 npm i -D prisma
 npx prisma init
 npx prisma db push
+
+# See the Live Demo
